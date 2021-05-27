@@ -1,0 +1,32 @@
+galaxy_info:
+  author: knelldev
+  description: Docker-based Rancher install and configuration for Linux
+  company: knelldev
+
+  role_name: rancher_install
+
+  license: license (MIT)
+
+  min_ansible_version: 2.9
+  platforms:
+  - name: Debian
+    versions:
+      - stretch
+      - buster
+  - name: Ubuntu
+    versions:
+      - xenial
+      - bionic
+      - focal
+
+  galaxy_tags: 
+    - linux
+    - system
+    - development
+    - docker
+    - container
+    - rancher
+    - kubernetes
+
+dependencies:
+  - knelldev.docker_install

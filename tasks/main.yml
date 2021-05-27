@@ -1,0 +1,24 @@
+---
+# tasks file for docker_install
+- name: (main) load vars for os if available
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version | lower }}.yml"
+      - "{{ ansible_distribution | lower }}.yml"
+      - "{{ ansible_os_family | lower }}.yml"
+      skip: true
+
+- name: (main) find tasks to run
+  find:
+    paths: "{{ role_path }}/tasks"
+    use_regex: yes
+    patterns:
+      - '^[0-9]{1,2}.*\.yml'
+  register: task_result
+  delegate_to: localhost
+
+- name: (main) include tasks
+  include: "{{ item.path }}"
+  loop: "{{ task_result.files | sort }}"
+  become: yes 

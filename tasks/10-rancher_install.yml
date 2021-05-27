@@ -1,0 +1,27 @@
+---
+- name: (install) launch rancher/rancher container
+  docker_container:
+    name: "rancher"
+    image: rancher/rancher:{{ rancher_version }}
+    state: started 
+    restart_policy: unless-stopped
+    pull: true
+    privileged: yes # needed since 2.5
+    volumes:
+      - "{{ rancher_path }}/data:/var/lib/rancher"
+    ports:
+      - "{{ rancher_http_port }}:80"
+      - "{{ rancher_https_port }}:443"
+
+- name: (install) ensure rancher is started
+  uri:
+    url: "https://localhost:{{ rancher_https_port }}"
+    return_content: true
+    status_code: 200, 403
+    follow_redirects: all
+    timeout: 5
+    validate_certs: no
+  register: rancherrequest
+  until: rancherrequest.status is defined and (rancherrequest.status == 200 or rancherrequest.status == 403) 
+  retries: 30
+  delay: 10

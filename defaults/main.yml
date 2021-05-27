@@ -1,0 +1,18 @@
+---
+general_storage_root: /data
+
+# rancher settings
+rancher_server_version: lastest
+rancher_server_url: https://{{ ansible_hostnane }}:{{ rancher_server_https_port }}
+
+rancher_server_admin_username: admin
+rancher_server_admin_password: admin # Password for initial install
+
+rancher_server_clusters_create: True
+rancher_server_clusters:
+  - zerotwo
+
+rancher_server_http_port: 80
+rancher_server_https_port: 443
+
+rancher_server_path: "{{ general_storage_root }}/rancher"
