@@ -1,6 +1,6 @@
 ---
 - name: (prepare) create folder
   file:
-    path: "{{ rancher_path }}"
+    path: "{{ rancher_server_path }}"
     state: directory
     mode: 0755

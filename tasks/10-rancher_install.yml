@@ -2,20 +2,20 @@
 - name: (install) launch rancher/rancher container
   docker_container:
     name: "rancher"
-    image: rancher/rancher:{{ rancher_version }}
+    image: rancher/rancher:{{ rancher_server_version }}
     state: started 
     restart_policy: unless-stopped
     pull: true
     privileged: yes # needed since 2.5
     volumes:
-      - "{{ rancher_path }}/data:/var/lib/rancher"
+      - "{{ rancher_server_path }}/data:/var/lib/rancher"
     ports:
-      - "{{ rancher_http_port }}:80"
-      - "{{ rancher_https_port }}:443"
+      - "{{ rancher_server_http_port }}:80"
+      - "{{ rancher_server_https_port }}:443"
 
 - name: (install) ensure rancher is started
   uri:
-    url: "https://localhost:{{ rancher_https_port }}"
+    url: "https://localhost:{{ rancher_server_https_port }}"
     return_content: true
     status_code: 200, 403
     follow_redirects: all
