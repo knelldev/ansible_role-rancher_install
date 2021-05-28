@@ -2,7 +2,7 @@
 general_storage_root: /data
 
 # rancher settings
-rancher_server_version: lastest
+rancher_server_version: latest
 rancher_server_url: https://{{ ansible_hostnane }}:{{ rancher_server_https_port }}
 
 rancher_server_admin_username: admin
