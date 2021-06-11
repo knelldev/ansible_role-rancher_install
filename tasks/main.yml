@@ -20,5 +20,5 @@
 
 - name: (main) include tasks
   include: "{{ item.path }}"
-  loop: "{{ task_result.files | sort }}"
+  loop: "{{ task_result.files | map(attribute='path') | flatten | sort }}"
   become: yes 
